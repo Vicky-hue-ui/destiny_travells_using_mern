@@ -5,11 +5,11 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose%209-47A248?logo=mongodb&logoColor=white)
 ![Architecture](https://img.shields.io/badge/Architecture-MVC-0b6e99)
 
-A RESTful back-end for managing travel destinations, built with **Node.js, Express.js, MongoDB and Mongoose** using the **MVC architecture**. It supports adding, retrieving, updating and deleting destinations, plus smart discovery with filtering, sorting, pagination, distinct values and counts.
+A RESTful API for managing travel destinations, built with **Node.js, Express.js, MongoDB and Mongoose** using the **MVC architecture**. The API supports destination creation, retrieval, updates and deletion, as well as filtering, sorting, pagination, category discovery and count queries.
 
 - **Database:** `destiny_travels`
 - **Collection:** `destinations`
-- **Mongoose methods used:** 15 (`create`, `insertMany`, `find`, `findById`, `findOne`, `findByIdAndUpdate`, `findOneAndUpdate`, `sort`, `skip`, `limit`, `distinct`, `countDocuments`, `findByIdAndDelete`, `findOneAndDelete`, `deleteMany`)
+- **Default API URL:** `http://localhost:5000/api/destinations`
 
 ## Table of Contents
 1. [Features](#features)
@@ -26,12 +26,13 @@ A RESTful back-end for managing travel destinations, built with **Node.js, Expre
 12. [Author](#author)
 
 ## Features
-- **Add:** one destination (`create`) or many at once (`insertMany`)
-- **Retrieve:** all destinations, one by ID, or one by name (case-insensitive)
-- **Update:** by ID or by name, with validation re-run on every update
-- **Smart discovery:** filter by category and price range, sort by price and rating, paginate with `skip` and `limit`, list unique categories, count destinations
-- **Cleanup:** delete by ID, by name, or many by condition (with a safety check so the whole collection cannot be wiped by accident)
-- **Validation and error handling:** clear JSON errors with correct HTTP status codes
+- Create one destination or submit a batch.
+- Retrieve destinations by ID or name, or browse the full collection.
+- Update destinations by ID or name with schema validation.
+- Discover destinations using category and price filters, sorting and pagination.
+- Query available categories and destination counts.
+- Delete by ID or name, or delete multiple records only when a filter is provided.
+- Receive consistent JSON error responses with appropriate HTTP status codes.
 
 ## Tech Stack
 | Technology | Purpose |
@@ -89,14 +90,19 @@ cp .env.example .env
 copy .env.example .env
 ```
 
-Edit `.env` with your own values (see below), then start the server:
+Edit `.env` with your own values (see below). Start the server with either command:
 
 ```bash
-npm start        # runs: node server.js
-npm run dev      # auto-restarts on file changes
+npm start
 ```
 
-The API is available at `http://localhost:5000`. Open it in a browser or Postman; you should see:
+For development, use the watch-mode script instead:
+
+```bash
+npm run dev
+```
+
+After MongoDB connects, the API is available at `http://localhost:5000` by default. Open the root URL in a browser or Postman to confirm the server is running:
 
 ```json
 { "success": true, "message": "Welcome to Destiny Travels API" }
@@ -133,21 +139,21 @@ Security notes:
 ## API Reference
 Base URL: `http://localhost:5000/api/destinations`
 
-| Challenge | Method | Endpoint | Mongoose method |
-|---|---|---|---|
-| 01 Add | POST | `/` | `create()` |
-| 01 Add | POST | `/bulk` | `insertMany()` |
-| 02 Retrieve | GET | `/` | `find()` |
-| 02 Retrieve | GET | `/:id` | `findById()` |
-| 02 Retrieve | GET | `/name/:name` | `findOne()` |
-| 03 Update | PUT | `/:id` | `findByIdAndUpdate()` |
-| 03 Update | PUT | `/name/:name` | `findOneAndUpdate()` |
-| 04 Discover | GET | `/discover` | `find()`, `sort()`, `skip()`, `limit()`, `countDocuments()` |
-| 04 Discover | GET | `/categories` | `distinct()` |
-| 04 Discover | GET | `/count` | `countDocuments()` |
-| 05 Cleanup | DELETE | `/:id` | `findByIdAndDelete()` |
-| 05 Cleanup | DELETE | `/name/:name` | `findOneAndDelete()` |
-| 05 Cleanup | DELETE | `/` | `deleteMany()` |
+| Resource | Method | Endpoint |
+|---|---|---|
+| Create a destination | POST | `/` |
+| Create multiple destinations | POST | `/bulk` |
+| List destinations | GET | `/` |
+| Get a destination by ID | GET | `/:id` |
+| Get a destination by name | GET | `/name/:name` |
+| Update a destination by ID | PUT | `/:id` |
+| Update a destination by name | PUT | `/name/:name` |
+| Discover destinations | GET | `/discover` |
+| List available categories | GET | `/categories` |
+| Count destinations | GET | `/count` |
+| Delete a destination by ID | DELETE | `/:id` |
+| Delete a destination by name | DELETE | `/name/:name` |
+| Delete multiple destinations by filter | DELETE | `/` |
 
 ### Query parameters
 **`GET /discover`**
@@ -195,9 +201,19 @@ Response `201 Created`:
 ```http
 GET /api/destinations/discover?category=Beach&minPrice=10000&maxPrice=20000&sortBy=price&page=1&limit=3
 ```
-Response `200 OK`:
+Response `200 OK` (abbreviated):
 ```json
-{ "success": true, "total": 2, "page": 1, "limit": 3, "totalPages": 1, "count": 2, "data": [ ... ] }
+{
+  "success": true,
+  "total": 2,
+  "page": 1,
+  "limit": 3,
+  "totalPages": 1,
+  "count": 2,
+  "data": [
+    { "_id": "...", "name": "Goa Beach Escape", "category": "Beach", "price": 15000 }
+  ]
+}
 ```
 
 **Delete many by condition**
@@ -246,4 +262,4 @@ Postman output for every endpoint is stored in [`screenshots/`](screenshots/). A
 | ![deleteMany](screenshots/22_delete_many.png) | ![validation](screenshots/03_validation_error.png) |
 
 ## Author
-Built as a Mongoose and Express.js learning project. Author: **Eren**.
+Built by **Eren** as a Mongoose and Express.js project.
