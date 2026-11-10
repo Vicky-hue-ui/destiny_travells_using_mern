@@ -1,0 +1,716 @@
+{
+  "info": {
+    "name": "Destiny Travels API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Challenge 01 - Add a destination (create)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Goa Beach Escape\",\n  \"country\": \"India\",\n  \"category\": \"Beach\",\n  \"price\": 15000,\n  \"rating\": 4.5,\n  \"description\": \"Sun, sand and sea with vibrant nightlife and water sports.\",\n  \"duration\": 4\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Challenge 01 - Add multiple destinations (insertMany)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/bulk",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "bulk"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "[\n  {\n    \"name\": \"Manali Snow Valley\",\n    \"country\": \"India\",\n    \"category\": \"Mountain\",\n    \"price\": 18000,\n    \"rating\": 4.7,\n    \"description\": \"Snow peaks, pine forests and the Rohtang Pass.\",\n    \"duration\": 5\n  },\n  {\n    \"name\": \"Jaipur Royal Heritage\",\n    \"country\": \"India\",\n    \"category\": \"Heritage\",\n    \"price\": 12000,\n    \"rating\": 4.4,\n    \"description\": \"Forts, palaces and colourful bazaars of the Pink City.\",\n    \"duration\": 3\n  },\n  {\n    \"name\": \"Mumbai City Lights\",\n    \"country\": \"India\",\n    \"category\": \"City\",\n    \"price\": 9000,\n    \"rating\": 4.1,\n    \"description\": \"Marine Drive, street food and the Gateway of India.\",\n    \"duration\": 3\n  },\n  {\n    \"name\": \"Rishikesh River Rafting\",\n    \"country\": \"India\",\n    \"category\": \"Adventure\",\n    \"price\": 11000,\n    \"rating\": 4.6,\n    \"description\": \"White water rafting and bungee jumping on the Ganges.\",\n    \"duration\": 3\n  },\n  {\n    \"name\": \"Jim Corbett Safari\",\n    \"country\": \"India\",\n    \"category\": \"Wildlife\",\n    \"price\": 14000,\n    \"rating\": 4.3,\n    \"description\": \"Jeep safari through tiger country.\",\n    \"duration\": 3\n  },\n  {\n    \"name\": \"Kovalam Beach Retreat\",\n    \"country\": \"India\",\n    \"category\": \"Beach\",\n    \"price\": 13000,\n    \"rating\": 4.2,\n    \"description\": \"Crescent beaches and Ayurvedic spa resorts.\",\n    \"duration\": 4\n  },\n  {\n    \"name\": \"Andaman Island Paradise\",\n    \"country\": \"India\",\n    \"category\": \"Beach\",\n    \"price\": 32000,\n    \"rating\": 4.9,\n    \"description\": \"Crystal-clear water, coral reefs and scuba diving.\",\n    \"duration\": 6\n  },\n  {\n    \"name\": \"Leh Ladakh Expedition\",\n    \"country\": \"India\",\n    \"category\": \"Adventure\",\n    \"price\": 28000,\n    \"rating\": 4.8,\n    \"description\": \"High-altitude passes, monasteries and Pangong Lake.\",\n    \"duration\": 7\n  },\n  {\n    \"name\": \"Hampi Heritage Trail\",\n    \"country\": \"India\",\n    \"category\": \"Heritage\",\n    \"price\": 8000,\n    \"rating\": 4.0,\n    \"description\": \"Ruins of the Vijayanagara empire.\",\n    \"duration\": 2\n  }\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Error handling - validation failure (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test Place\",\n  \"category\": \"Spaceship\",\n  \"price\": -50\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Error handling - duplicate destination (409)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Goa Beach Escape\",\n  \"country\": \"India\",\n  \"category\": \"Beach\",\n  \"price\": 15000,\n  \"rating\": 4.5,\n  \"description\": \"Sun, sand and sea with vibrant nightlife and water sports.\",\n  \"duration\": 4\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Challenge 02 - Fetch all destinations (find)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Challenge 02 - Retrieve by ID (findById)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/6af2d60108371dff5b812855",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "6af2d60108371dff5b812855"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Challenge 02 - Retrieve by name (findOne)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/name/Manali%20Snow%20Valley",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "name",
+            "Manali%20Snow%20Valley"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Error handling - invalid ID (400)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/123abc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "123abc"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Error handling - destination not found (404)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/64b8f0c2a1b2c3d4e5f60789",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "64b8f0c2a1b2c3d4e5f60789"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Challenge 03 - Update by ID (findByIdAndUpdate)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/6af2d60108371dff5b812855",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "6af2d60108371dff5b812855"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 16500,\n  \"rating\": 4.6\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Challenge 03 - Update by name (findOneAndUpdate)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/name/Jaipur%20Royal%20Heritage",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "name",
+            "Jaipur%20Royal%20Heritage"
+          ],
+          "query": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 12500,\n  \"description\": \"Forts, palaces, and colourful bazaars of the Pink City - now with a heritage dinner.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Challenge 04 - Filter by category and price range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/discover?category=Beach&minPrice=10000&maxPrice=20000",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "discover"
+          ],
+          "query": [
+            {
+              "key": "category",
+              "value": "Beach"
+            },
+            {
+              "key": "minPrice",
+              "value": "10000"
+            },
+            {
+              "key": "maxPrice",
+              "value": "20000"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Challenge 04 - Sort by price (high to low)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/discover?sortBy=price&order=desc&limit=5",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "discover"
+          ],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "price"
+            },
+            {
+              "key": "order",
+              "value": "desc"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Challenge 04 - Sort by rating (high to low)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/discover?sortBy=rating&order=desc&limit=5",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "discover"
+          ],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "rating"
+            },
+            {
+              "key": "order",
+              "value": "desc"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Challenge 04 - Pagination page 1 (skip, limit)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/discover?sortBy=price&page=1&limit=3",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "discover"
+          ],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "price"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "3"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Challenge 04 - Pagination page 2 (skip, limit)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/discover?sortBy=price&page=2&limit=3",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "discover"
+          ],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "price"
+            },
+            {
+              "key": "page",
+              "value": "2"
+            },
+            {
+              "key": "limit",
+              "value": "3"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Challenge 04 - Unique categories (distinct)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/categories",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "categories"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Challenge 04 - Count destinations (countDocuments)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/count",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "count"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Challenge 04 - Count by category (countDocuments)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/count?category=Beach",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "count"
+          ],
+          "query": [
+            {
+              "key": "category",
+              "value": "Beach"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Challenge 05 - Delete by ID (findByIdAndDelete)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/6af2d60108371dff5b812858",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "6af2d60108371dff5b812858"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Challenge 05 - Delete by name (findOneAndDelete)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/name/Hampi%20Heritage%20Trail",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "name",
+            "Hampi%20Heritage%20Trail"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Challenge 05 - Delete multiple by condition (deleteMany)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations?maxRating=4.4",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations"
+          ],
+          "query": [
+            {
+              "key": "maxRating",
+              "value": "4.4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Error handling - deleteMany without condition (400)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations"
+          ],
+          "query": []
+        }
+      }
+    },
+    {
+      "name": "Verification - remaining destinations after cleanup",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/destinations/count",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "destinations",
+            "count"
+          ],
+          "query": []
+        }
+      }
+    }
+  ]
+}
